@@ -3,6 +3,9 @@
   --paper: #fbfdfc;
   --accent: #5aa6a5;
   --accent-dark: #2f6f68;
+  --accent-rose: #f08aab;
+  --accent-sun: #f6c85f;
+  --accent-lilac: #9a8cf3;
   --text: #1e2c2a;
   --muted: #5b706c;
   --border: #d0e3de;
@@ -20,8 +23,9 @@ body {
   margin: 0;
   color: var(--text);
   background: var(--bg);
-  background-image: radial-gradient(circle at 20% 20%, rgba(90, 166, 165, 0.08), transparent 35%),
-    radial-gradient(circle at 80% 0, rgba(196, 223, 217, 0.35), transparent 40%);
+  background-image: radial-gradient(circle at 20% 20%, rgba(90, 166, 165, 0.12), transparent 35%),
+    radial-gradient(circle at 80% 0, rgba(196, 223, 217, 0.35), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(240, 138, 171, 0.15), transparent 45%);
   line-height: 1.7;
   font-weight: 400;
 }
@@ -152,7 +156,8 @@ main {
   padding: 4rem 0 3rem;
   align-items: center;
   background: radial-gradient(circle at top left, rgba(149, 203, 198, 0.35), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(90, 166, 165, 0.22), transparent 55%);
+    radial-gradient(circle at bottom right, rgba(240, 138, 171, 0.25), transparent 55%),
+    linear-gradient(135deg, #fef9f6 0%, #f1fbf8 70%);
   border-radius: 30px;
   position: relative;
   overflow: hidden;
@@ -220,6 +225,12 @@ main {
   font-size: 0.95rem;
   color: var(--muted);
   margin: 0.4rem 0 1rem;
+}
+
+.hero-note span {
+  display: inline-flex;
+  margin-left: 0.4rem;
+  margin-top: 0.3rem;
 }
 
 .brush-logo {
@@ -334,7 +345,9 @@ main {
 .hero-stats strong {
   font-size: 2rem;
   display: block;
-  color: var(--accent-dark);
+  background: linear-gradient(120deg, var(--accent-rose), var(--accent), var(--accent-sun));
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .hero-visual {
@@ -349,7 +362,7 @@ main {
   width: min(320px, 90%);
   padding: 2rem;
   border-radius: 20px;
-  background: linear-gradient(160deg, #f5fbfa, #e0f0ec);
+  background: linear-gradient(150deg, rgba(250, 247, 218, 0.95), rgba(157, 215, 206, 0.9));
   box-shadow: var(--shadow);
   animation: float 6s ease-in-out infinite;
   border: 1px solid rgba(108, 167, 158, 0.3);
@@ -361,6 +374,8 @@ main {
   right: 0;
   transform: translate(40%, 25%);
   animation-delay: 2s;
+  background: linear-gradient(150deg, rgba(240, 138, 171, 0.95), rgba(154, 140, 243, 0.85));
+  color: #fff;
 }
 
 @keyframes float {
@@ -383,7 +398,8 @@ main {
 }
 
 .section.highlight {
-  background: linear-gradient(140deg, #edf6f3, #f9fcfb);
+  background: linear-gradient(140deg, rgba(240, 138, 171, 0.08), rgba(90, 166, 165, 0.05)),
+    linear-gradient(140deg, #edf6f3, #f9fcfb);
 }
 
 .section-heading {
@@ -394,8 +410,19 @@ main {
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--muted);
+  color: var(--accent-dark);
   font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eyebrow::after {
+  content: "";
+  width: 38px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-rose), var(--accent-lilac));
 }
 
 .card-grid {
@@ -420,8 +447,8 @@ main {
   display: inline-block;
   padding: 0.2rem 0.8rem;
   border-radius: 999px;
-  background: rgba(90, 166, 165, 0.12);
-  color: var(--accent-dark);
+  background: linear-gradient(120deg, var(--accent-rose), var(--accent));
+  color: #fff;
   font-size: 0.8rem;
   letter-spacing: 0.2em;
   margin-bottom: 0.6rem;
@@ -446,8 +473,53 @@ main {
   color: var(--accent-dark);
 }
 
+.text-highlight {
+  color: var(--accent-rose);
+  font-weight: 700;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--accent-rose), var(--accent-sun));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.text-subaccent {
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+
+.text-gold {
+  color: var(--accent-sun);
+  font-weight: 700;
+}
+
+.text-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  background: linear-gradient(120deg, rgba(90, 166, 165, 0.15), rgba(255, 255, 255, 0));
+  border: 1px solid rgba(90, 166, 165, 0.3);
+}
+
+.text-chip.sun {
+  background: linear-gradient(120deg, rgba(246, 200, 95, 0.22), rgba(255, 255, 255, 0));
+  border-color: rgba(246, 200, 95, 0.4);
+  color: var(--accent-sun);
+}
+
+.text-chip.rose {
+  background: linear-gradient(120deg, rgba(240, 138, 171, 0.2), rgba(255, 255, 255, 0));
+  border-color: rgba(240, 138, 171, 0.35);
+  color: var(--accent-rose);
+}
+
 .testimonials {
-  background: linear-gradient(120deg, #f2fbfa, #fefefe);
+  background: linear-gradient(120deg, rgba(240, 138, 171, 0.08), rgba(90, 166, 165, 0.08), rgba(154, 140, 243, 0.08));
 }
 
 .testimonial-grid {
@@ -461,6 +533,7 @@ main {
   padding-top: 2.8rem;
   background: rgba(255, 255, 255, 0.98);
   box-shadow: var(--shadow);
+  border: 1px solid rgba(240, 138, 171, 0.2);
 }
 
 .testimonial-card::before {
@@ -505,6 +578,29 @@ main {
   border: 1px dashed rgba(90, 166, 165, 0.35);
   padding: 1.5rem;
   background: rgba(229, 244, 240, 0.9);
+}
+
+#features .feature-card:nth-of-type(1) {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(240, 138, 171, 0.12));
+}
+
+#features .feature-card:nth-of-type(2) {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(154, 140, 243, 0.12));
+}
+
+#lineup .card:nth-of-type(1) {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(90, 166, 165, 0.16));
+  border-color: rgba(90, 166, 165, 0.45);
+}
+
+#lineup .card:nth-of-type(2) {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(240, 138, 171, 0.16));
+  border-color: rgba(240, 138, 171, 0.45);
+}
+
+#lineup .card:nth-of-type(3) {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(246, 200, 95, 0.18));
+  border-color: rgba(246, 200, 95, 0.45);
 }
 
 .two-column {
