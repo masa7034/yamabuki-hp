@@ -461,6 +461,34 @@ main {
   color: var(--muted);
 }
 
+.photo-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.2rem;
+}
+
+.photo-gallery-grid figure {
+  margin: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(90, 166, 165, 0.2);
+  box-shadow: var(--shadow);
+}
+
+.photo-gallery-grid img {
+  width: 100%;
+  height: clamp(160px, 25vw, 240px);
+  object-fit: cover;
+  display: block;
+}
+
+.photo-gallery-grid figcaption {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
 .feature-gallery figure:nth-of-type(2),
 .voice-gallery figure:nth-of-type(2) {
   border-color: rgba(240, 138, 171, 0.35);
