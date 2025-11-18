@@ -42,3 +42,72 @@ if ("IntersectionObserver" in window) {
 } else {
   fadeElements.forEach((el) => el.classList.add("visible"));
 }
+
+const heroSection = document.querySelector(".hero");
+const heroVisual = document.querySelector(".hero-visual");
+const prefersReducedMotion = window.matchMedia
+  ? window.matchMedia("(prefers-reduced-motion: reduce)")
+  : { matches: false };
+
+if (heroSection && heroVisual) {
+  let rafId = 0;
+  let tiltEnabled = false;
+
+  const updateTilt = (x, y) => {
+    cancelAnimationFrame(rafId);
+    rafId = window.requestAnimationFrame(() => {
+      heroVisual.style.setProperty("--tilt-x", `${x}deg`);
+      heroVisual.style.setProperty("--tilt-y", `${y}deg`);
+    });
+  };
+
+  const resetTilt = () => updateTilt(0, 0);
+
+  const handlePointerMove = (event) => {
+    const rect = heroSection.getBoundingClientRect();
+    const relativeX = (event.clientX - rect.left) / rect.width - 0.5;
+    const relativeY = (event.clientY - rect.top) / rect.height - 0.5;
+    const tiltX = relativeX * 10;
+    const tiltY = relativeY * -6;
+    updateTilt(tiltX, tiltY);
+  };
+
+  const handlePointerLeave = () => {
+    resetTilt();
+  };
+
+  const enableTilt = () => {
+    if (tiltEnabled) {
+      return;
+    }
+    heroSection.addEventListener("pointermove", handlePointerMove);
+    heroSection.addEventListener("pointerleave", handlePointerLeave);
+    tiltEnabled = true;
+  };
+
+  const disableTilt = () => {
+    if (!tiltEnabled) {
+      return;
+    }
+    heroSection.removeEventListener("pointermove", handlePointerMove);
+    heroSection.removeEventListener("pointerleave", handlePointerLeave);
+    tiltEnabled = false;
+    resetTilt();
+  };
+
+  const evaluateMotionPreference = () => {
+    if (prefersReducedMotion.matches) {
+      disableTilt();
+    } else {
+      enableTilt();
+    }
+  };
+
+  evaluateMotionPreference();
+
+  if (typeof prefersReducedMotion.addEventListener === "function") {
+    prefersReducedMotion.addEventListener("change", evaluateMotionPreference);
+  } else if (typeof prefersReducedMotion.addListener === "function") {
+    prefersReducedMotion.addListener(evaluateMotionPreference);
+  }
+}
